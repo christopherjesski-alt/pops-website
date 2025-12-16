@@ -98,6 +98,43 @@
         }
         .mobile-menu { display: none; }
 
+        /* Mobile nav overlay */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(13, 13, 13, 0.98);
+            z-index: 99;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+        .mobile-nav-overlay.active {
+            display: flex;
+        }
+        .mobile-nav-overlay a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            transition: color 0.3s ease;
+        }
+        .mobile-nav-overlay a:hover {
+            color: var(--gold);
+        }
+        .mobile-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: var(--gold);
+            cursor: pointer;
+        }
+
         /* HERO */
         .hero {
             min-height: 100vh;
@@ -605,6 +642,17 @@
         <div class="mobile-menu">☰</div>
     </nav>
 
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNav">
+        <div class="mobile-close" onclick="closeMobileNav()">×</div>
+        <a href="#about" onclick="closeMobileNav()">About</a>
+        <a href="#statement" onclick="closeMobileNav()">Director</a>
+        <a href="#crew" onclick="closeMobileNav()">Crew</a>
+        <a href="#updates" onclick="closeMobileNav()">Updates</a>
+        <a href="#contact" onclick="closeMobileNav()">Contact</a>
+        <a href="https://gofund.me/7c8bfad17" target="_blank" rel="noopener" onclick="trackClick('Mobile Nav','GoFundMe')">Support</a>
+    </div>
+
     <section class="hero" id="top">
         <div class="hero-bg" id="hero-bg"></div>
         <div class="hero-overlay"></div>
@@ -689,6 +737,8 @@
                 <div class="crew-card fade"><div class="crew-avatar">J</div><h3 class="crew-name">Jasmine Calix</h3><p class="crew-role">Production Designer</p></div>
                 <div class="crew-card fade"><div class="crew-avatar">N</div><h3 class="crew-name">Nick Peace</h3><p class="crew-role">Production Coordinator</p></div>
                 <div class="crew-card fade"><div class="crew-avatar">O</div><h3 class="crew-name">Olivia Messer</h3><p class="crew-role">Assistant Director</p></div>
+                <div class="crew-card fade"><div class="crew-avatar">P</div><h3 class="crew-name">Pariss Eanglee</h3><p class="crew-role">Producer</p></div>
+                <div class="crew-card fade"><div class="crew-avatar">A</div><h3 class="crew-name">Ainsley Reid</h3><p class="crew-role">Production Assistant</p></div>
             </div>
         </div>
     </section>
@@ -805,6 +855,14 @@
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
         }, { threshold: 0.1 });
         fades.forEach(f => observer.observe(f));
+
+        // Mobile menu
+        function closeMobileNav() {
+            document.getElementById('mobileNav').classList.remove('active');
+        }
+        document.querySelector('.mobile-menu').addEventListener('click', () => {
+            document.getElementById('mobileNav').classList.add('active');
+        });
     </script>
 </body>
 </html>
